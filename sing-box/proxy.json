@@ -3,7 +3,8 @@
     "rules": [
       {
         "domain_suffix": [
-          "enjoy.bot"
+          "enjoy.bot",
+          "wallhaven.cc"
         ]
     }
     ]
