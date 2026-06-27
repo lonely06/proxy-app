@@ -50,7 +50,7 @@
   - `rules/direct.list`
   - `rules/proxy.list`
 - mihomo 远程规则集：
-  - MetaCubeX `meta-rules-dat`
+  - [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat)
   - 主要使用 `.mrs` 格式规则集
 - Shadowrocket 补充规则：
   - `blackmatrix7/ios_rule_script`
