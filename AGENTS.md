@@ -3,28 +3,63 @@
 Scope: this file applies to the whole repository.
 
 ## Project shape
-- This repo stores proxy rule lists and client profiles for mihomo, OpenClash, sing-box, Shadowrocket, and Loon.
-- Keep the repository lean. Prefer direct edits to rules and profiles over adding generators or extra tooling.
+
+- This repo stores personal proxy rules and client profiles.
+- `profiles/mihomo.yaml` is the primary maintained config for mihomo-based clients such as OpenClash, Clash Verge Rev, and FlClash.
+- `profiles/shadowrocket.conf` is a simplified Shadowrocket profile derived from the mihomo config.
+- `rules/direct.list` and `rules/proxy.list` are small self-maintained rule lists shared by profiles.
+- Keep the repository lean. Prefer direct edits to rules and profiles over adding generators, build steps, or extra tooling.
 
 ## Editing rules
+
 - Preserve existing group names, emoji labels, and rule order unless a coordinated rename is required.
-- Keep `rules/direct.list` for direct destinations and `rules/proxy.list` for proxy-only destinations.
-- When a destination changes, check every profile that duplicates logic or names, especially `profiles/shadowrocket.conf` and `profiles/openclash.ini`.
+- Keep `rules/direct.list` for destinations that should be forced direct.
+- Keep `rules/proxy.list` for destinations that should be forced through proxy.
+- When a destination changes, check every maintained profile that duplicates logic or names, especially `profiles/mihomo.yaml` and `profiles/shadowrocket.conf`.
 - Keep rules as small as practical. Start with the narrowest useful match and avoid unnecessary complexity.
 - Do not change remote rule URLs or provider sources unless the user asked for it.
+- Leave unrelated user changes alone.
+
+## mihomo-specific notes
+
+- `profiles/mihomo.yaml` should stay valid YAML.
+- Keep the placeholder `proxy-providers` structure unless the task is to redesign subscriptions.
+- Do not casually rename strategy groups. DNS policies and rules may refer to the group names through `#<group name>` suffixes or `RULE-SET` targets.
+- Keep the `🕳️ 漏网之鱼` group defaulting to direct first unless the user explicitly asks to change the fallback behavior.
+- Keep the config simple; do not add heavy leak-prevention logic unless the user explicitly asks for it.
+
+## DNS rules
+
+- Be careful when editing `dns:` in `profiles/mihomo.yaml`.
+- Preserve `respect-rules: true` unless the user explicitly asks to change how DNS connections are routed.
+- Preserve `enhanced-mode: fake-ip` for the current TUN transparent-proxy setup unless the task is specifically about DNS mode.
+- Keep `direct-nameserver` on domestic DNS resolvers unless the user asks for another direct-DNS strategy.
+- Keep `direct-nameserver-follow-policy: false` unless the user explicitly wants direct DNS to follow `nameserver-policy`.
+- When using DNS policy entries with a proxy group suffix, make sure the suffix exactly matches an existing strategy group name, for example `#🤖 AI` or `#💬 社交平台`.
+
+## Rule-provider notes
+
+- Prefer MetaCubeX `meta-rules-dat` `.mrs` rule sets for mihomo remote providers.
+- For npm, use the `npmjs.mrs` geosite rule set name.
+- For PyPI / Python package ecosystem rules, use the `python.mrs` geosite rule set name.
+- Keep custom `rules/direct.list` and `rules/proxy.list` in classical text format.
 
 ## File-specific notes
-- `profiles/mihomo.yaml`: keep the YAML valid and leave the placeholder/provider structure intact unless the task is to redesign it.
-- `profiles/openclash.ini` and `profiles/shadowrocket.conf`: preserve client-specific syntax, quoting, and section layout.
-- `sing-box/proxy.json`: keep valid JSON and avoid reformatting noise.
-- `README.md`: update it when the repo structure, supported clients, or sourcing strategy changes.
+
+- `profiles/mihomo.yaml`: primary profile; preserve YAML syntax, strategy group names, DNS policy links, and rule-provider references.
+- `profiles/shadowrocket.conf`: preserve Shadowrocket syntax, section layout, and simplified group structure.
+- `rules/direct.list`: add only clear direct destinations.
+- `rules/proxy.list`: add only clear proxy-only destinations.
+- `README.md`: update it when the repo structure, supported clients, DNS strategy, rule categories, or sourcing strategy changes.
 
 ## Validation
-- Check syntax after edits: YAML, JSON, and INI.
+
+- Check syntax after edits: YAML for mihomo, INI-like syntax for Shadowrocket, plain text for rule lists.
 - Verify that renamed groups or rule keys still match every reference in the repo.
-- Search the tree before finishing if a change touches shared names or URLs.
+- Search the tree before finishing if a change touches shared names, URLs, rule-provider keys, or strategy group names.
 
 ## Commit Message
+
 - Use this format:
   ```text
   - <本次commit的汇总信息>
@@ -36,6 +71,7 @@ Scope: this file applies to the whole repository.
 - Keep the summary as a bullet, with the main changes listed underneath as numbered items.
 
 ## Style
+
 - Keep comments concise and consistent with the surrounding file.
-- Prefer ASCII unless the nearby content clearly relies on non-ASCII labels.
-- Leave unrelated user changes alone.
+- Prefer ASCII in prose unless the nearby content or user-facing labels rely on Chinese or emoji.
+- Do not rewrite large unrelated sections just for formatting.
