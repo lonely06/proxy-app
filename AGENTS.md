@@ -60,15 +60,100 @@ Scope: this file applies to the whole repository.
 
 ## Commit Message
 
-- Use this format:
+- Always generate the commit message from the actual diff, not from a generic task label.
+- Use this required format:
   ```text
-  - <本次commit的汇总信息>
-    1. <明细1>
-    2. <明细2>
+  - <本次 commit 的真实汇总信息>
+    1. <真实明细 1>
+    2. <真实明细 2>
   ```
-- The first line should be the real summary for this commit, not a fixed phrase.
-- Each numbered item should also be the real detail for this commit, not fixed placeholder text.
-- Keep the summary as a bullet, with the main changes listed underneath as numbered items.
+- The first line must be a concrete summary of the commit outcome. It should mention the changed area and the user-visible behavior when possible.
+- Each numbered item must describe one real change from the diff. Do not use placeholders, vague wording, or repeated restatements of the summary.
+- Prefer 2-4 numbered items. Use more only when the commit genuinely touches multiple independent concerns.
+
+### Commit message generator
+
+Before committing, answer these questions from the diff:
+
+1. Which files changed?
+2. Which behavior, rule, source, group, or documentation contract changed?
+3. Which existing behavior was intentionally preserved?
+4. Did any shared name, rule order, DNS policy, remote URL, or strategy group reference change?
+
+Then generate the message as follows:
+
+1. Choose the summary target:
+   - `profiles/mihomo.yaml` -> mention mihomo, DNS, strategy groups, or rule providers.
+   - `profiles/shadowrocket.conf` -> mention Shadowrocket, proxy groups, AI/GitHub rules, or fallback behavior.
+   - `rules/direct.list` -> mention forced-direct destinations.
+   - `rules/proxy.list` -> mention forced-proxy destinations.
+   - `README.md` or `AGENTS.md` -> mention documentation or agent guidance.
+2. Write the summary as `- <action> <target> <outcome>`.
+3. Write each numbered item as `<action> <specific object> <reason or result>`.
+4. If a change preserves an important order or fallback behavior, include that preservation as a numbered item.
+5. If the commit is a follow-up correction, still describe the actual file/content change instead of writing only `规范提交` or `修正 commit message`.
+
+### Good examples
+
+```text
+- 优化 Shadowrocket 策略组与 GitHub 分流
+  1. 将策略组命名调整为与 mihomo.yaml 一致的图标风格
+  2. 新增 👨🏿‍💻 GitHub 独立策略组并改写 GitHub 规则目标
+  3. 保留 direct/proxy 规则集顺序和 GEOIP CN 直连兜底
+```
+
+```text
+- 调整 mihomo DNS 策略联动
+  1. 为 AI 和 GitHub 规则集配置跟随对应策略组的 DoH 解析
+  2. 保留 direct-nameserver 使用国内 DNS 且不跟随 nameserver-policy
+  3. 维持 fake-ip 与 respect-rules 以适配当前 TUN 透明代理场景
+```
+
+```text
+- 补充自定义代理规则
+  1. 将 example.com 加入 rules/proxy.list 以强制走代理
+  2. 确认 direct.list 未添加重复或冲突规则
+```
+
+```text
+- 完善仓库代理配置说明
+  1. 更新 README.md 中的规则来源说明
+  2. 补充 Shadowrocket 与 mihomo 配置职责差异
+```
+
+### Bad examples
+
+Do not use vague summaries:
+
+```text
+Optimize config
+Update files
+Fix rules
+规范提交
+```
+
+Do not use generic details:
+
+```text
+- 优化配置
+  1. 更新内容
+  2. 修复问题
+```
+
+Do not mention only process when the commit changes repository content:
+
+```text
+- 规范 AGENTS.md 提交
+  1. 按要求修改格式
+```
+
+Prefer a content-based message instead:
+
+```text
+- 完善 AGENTS.md 提交信息生成规则
+  1. 增加提交信息生成流程、摘要模板和明细规则
+  2. 补充不同配置变更场景的示例和反例
+```
 
 ## Style
 
