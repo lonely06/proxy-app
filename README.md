@@ -1,18 +1,24 @@
-## 代理软件
+## 仓库结构
+
+- `rules/`：共享直连 / 代理规则
+- `profiles/`：各客户端配置
+- `sing-box/`：sing-box 独立规则示例
+
+## 主要使用环境
+
 - OpenWRT
-  - SingBox
-    - homeproxy
-      - https://fantastic-packages.github.io/packages/releases/23.05/packages/arm_cortex-a15_neon-vfpv4/luci/
+  - OpenClash
+  - Sing-box / homeproxy
 - PC
-  - clash-verge-rev
-    - https://github.com/clash-verge-rev/clash-verge-rev
+  - mihomo 内核客户端：Clash Verge Rev、FlClash
+- iOS
+  - Shadowrocket
+  - Loon
 
-## 分流规则
+## 规则来源
 
-- OpenWRT
-  - SingBox
-    - https://github.com/MetaCubeX/meta-rules-dat/tree/sing
-- IOS 各类代理软件
+- `rules/`：仓库自维护直连 / 代理列表
+- OpenWRT / Sing-box
+  - https://github.com/MetaCubeX/meta-rules-dat/tree/sing
+- iOS 各类代理软件
   - https://github.com/blackmatrix7/ios_rule_script
-  - 小火箭
-    - https://github.com/blackmatrix7/ios_rule_script
