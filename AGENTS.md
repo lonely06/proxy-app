@@ -60,15 +60,27 @@ Scope: this file applies to the whole repository.
 
 ## Commit Message
 
-- Use this format:
+- Generate the commit message from the actual diff, not from a generic task label.
+- Use this required format:
   ```text
-  - <本次commit的汇总信息>
-    1. <明细1>
-    2. <明细2>
+  - <真实汇总信息>
+    1. <真实明细 1>
+    2. <真实明细 2>
   ```
-- The first line should be the real summary for this commit, not a fixed phrase.
-- Each numbered item should also be the real detail for this commit, not fixed placeholder text.
-- Keep the summary as a bullet, with the main changes listed underneath as numbered items.
+- The summary must mention the changed area and actual outcome.
+- Each numbered item must describe one real change from the diff.
+- Prefer 2-4 numbered items.
+- Include preserved behavior when it matters, such as rule order, fallback behavior, DNS strategy, remote URLs, or existing group names.
+- Do not use vague summaries such as `Optimize config`, `Update files`, `Fix rules`, `规范提交`, or `修正 commit message`.
+
+Example:
+
+```text
+- 优化 Shadowrocket 策略组与 GitHub 分流
+  1. 将策略组命名调整为与 mihomo.yaml 一致的图标风格
+  2. 新增 👨🏿‍💻 GitHub 独立策略组并改写 GitHub 规则目标
+  3. 保留 direct/proxy 规则集顺序和 GEOIP CN 直连兜底
+```
 
 ## Style
 
