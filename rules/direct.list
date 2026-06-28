@@ -1,4 +1,6 @@
-DOMAIN-SUFFIX,lone1.top
+# 自用
+DOMAIN,fn.lone1.top,DIRECT
+DOMAIN-SUFFIX,fn.lone1.top,DIRECT
 # 馒头
 DOMAIN-SUFFIX,m-team.cc
 # 赔钱机场
