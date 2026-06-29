@@ -7,6 +7,7 @@ Scope: this file applies to the whole repository.
 - This repo stores personal proxy rules and client profiles.
 - `profiles/mihomo.yaml` is the primary maintained config for mihomo-based clients such as OpenClash, Clash Verge Rev, and FlClash.
 - `profiles/shadowrocket.conf` is a simplified Shadowrocket profile derived from the mihomo config.
+- `profiles/loon.conf` is the maintained Loon profile derived from the mihomo routing model while preserving Loon scripts and plugins.
 - `rules/direct.list` and `rules/proxy.list` are small self-maintained rule lists shared by profiles.
 - Keep the repository lean. Prefer direct edits to rules and profiles over adding generators, build steps, or extra tooling.
 
@@ -16,6 +17,7 @@ Scope: this file applies to the whole repository.
 - Keep `rules/direct.list` for destinations that should be forced direct.
 - Keep `rules/proxy.list` for destinations that should be forced through proxy.
 - When a destination changes, check every maintained profile that duplicates logic or names, especially `profiles/mihomo.yaml` and `profiles/shadowrocket.conf`.
+- For Loon changes, keep `Remote Rule` targets and plugin `policy=` values aligned with existing policy group names.
 - Keep rules as small as practical. Start with the narrowest useful match and avoid unnecessary complexity.
 - Do not change remote rule URLs or provider sources unless the user asked for it.
 - Leave unrelated user changes alone.
@@ -48,6 +50,7 @@ Scope: this file applies to the whole repository.
 
 - `profiles/mihomo.yaml`: primary profile; preserve YAML syntax, strategy group names, DNS policy links, and rule-provider references.
 - `profiles/shadowrocket.conf`: preserve Shadowrocket syntax, section layout, and simplified group structure.
+- `profiles/loon.conf`: preserve Loon section layout, strategy group names, Remote Filter usage, Remote Rule policy targets, scripts, remote scripts, plugins, and MITM entries.
 - `rules/direct.list`: add only clear direct destinations.
 - `rules/proxy.list`: add only clear proxy-only destinations.
 - `README.md`: update it when the repo structure, supported clients, DNS strategy, rule categories, or sourcing strategy changes.

@@ -1,7 +1,10 @@
 # 自用
 DOMAIN,fn.lone1.top,DIRECT
 DOMAIN-SUFFIX,fn.lone1.top,DIRECT
+
 # 馒头
 DOMAIN-SUFFIX,m-team.cc
-# 赔钱机场
+
+# 其他
 DOMAIN-SUFFIX,xn--mes358aby2apfg.com
+DOMAIN-SUFFIX,fnnas.com
