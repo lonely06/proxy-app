@@ -132,7 +132,7 @@ dns:
   # direct-nameserver 不跟随 nameserver-policy，避免直连域名被国外 DNS 解析
   direct-nameserver-follow-policy: false
 
-  # DNS 按大方向分流；AI / GitHub / 社交平台按对应业务组联动
+  # DNS 按大方向分流；AI / GitHub / 社交平台 / 开发服务按对应业务组联动
   nameserver-policy:
     "rule-set:private_domain":
       - 223.5.5.5
@@ -142,13 +142,13 @@ dns:
       - 223.5.5.5
       - 119.29.29.29
 
-    "rule-set:ai":
-      - https://1.1.1.1/dns-query#🤖 AI
-      - https://8.8.8.8/dns-query#🤖 AI
-
     "rule-set:github_domain":
       - https://1.1.1.1/dns-query#👨🏿‍💻 GitHub
       - https://8.8.8.8/dns-query#👨🏿‍💻 GitHub
+
+    "rule-set:ai":
+      - https://1.1.1.1/dns-query#🤖 AI
+      - https://8.8.8.8/dns-query#🤖 AI
 
     "rule-set:telegram_domain":
       - https://1.1.1.1/dns-query#💬 社交平台
@@ -161,6 +161,22 @@ dns:
     "rule-set:discord_domain":
       - https://1.1.1.1/dns-query#💬 社交平台
       - https://8.8.8.8/dns-query#💬 社交平台
+
+    "rule-set:docker_domain":
+      - https://1.1.1.1/dns-query#🛠️ 开发服务
+      - https://8.8.8.8/dns-query#🛠️ 开发服务
+
+    "rule-set:npmjs_domain":
+      - https://1.1.1.1/dns-query#🛠️ 开发服务
+      - https://8.8.8.8/dns-query#🛠️ 开发服务
+
+    "rule-set:python_domain":
+      - https://1.1.1.1/dns-query#🛠️ 开发服务
+      - https://8.8.8.8/dns-query#🛠️ 开发服务
+
+    "rule-set:crypto_domain":
+      - https://1.1.1.1/dns-query#💰 加密货币
+      - https://8.8.8.8/dns-query#💰 加密货币
 
     "rule-set:gfw_domain":
       - https://1.1.1.1/dns-query#🚀 默认代理
@@ -187,6 +203,7 @@ proxy-groups:
   - {name: 📹 YouTube, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
   - {name: 🍀 Google, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
   - {name: 💶 PayPal, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
+  - {name: 💰 加密货币, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
   - {name: ✈️ Speedtest, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
   - {name: 🪟 Microsoft, type: select, proxies: [直连, 🚀 默认代理]}
   - {name: 🍎 Apple, type: select, proxies: [直连, 🚀 默认代理]}
@@ -209,9 +226,9 @@ rules:
   - RULE-SET,proxy,🚀 默认代理
   - RULE-SET,private_domain,直连
   - RULE-SET,private_ip,直连,no-resolve
-  - RULE-SET,apple_domain,🍎 Apple
-  - RULE-SET,ai,🤖 AI
   - RULE-SET,github_domain,👨🏿‍💻 GitHub
+  - RULE-SET,ai,🤖 AI
+  - RULE-SET,apple_domain,🍎 Apple
   - RULE-SET,telegram_domain,💬 社交平台
   - RULE-SET,twitter_domain,💬 社交平台
   - RULE-SET,discord_domain,💬 社交平台
@@ -224,6 +241,7 @@ rules:
   - RULE-SET,microsoft_domain,🪟 Microsoft
   - RULE-SET,speedtest_domain,✈️ Speedtest
   - RULE-SET,paypal_domain,💶 PayPal
+  - RULE-SET,crypto_domain,💰 加密货币
   - RULE-SET,gfw_domain,🚀 默认代理
   - RULE-SET,geolocation-!cn,🚀 默认代理
   - RULE-SET,cn_domain,🎯 直连
@@ -243,7 +261,7 @@ rule-providers:
   private_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
   direct: { <<: *class, url: "https://raw.githubusercontent.com/lonely06/proxy-app/refs/heads/main/rules/direct.list"}
   proxy: { <<: *class, url: "https://raw.githubusercontent.com/lonely06/proxy-app/refs/heads/main/rules/proxy.list"}
-  ai: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-!cn.mrs" }
+  ai: { <<: *domain, url: "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/ai.mrs" }
   youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
   google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
   github_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
@@ -258,6 +276,7 @@ rule-providers:
   apple_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs"}
   speedtest_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"}
   paypal_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
+  crypto_domain: { <<: *domain, url: "https://raw.githubusercontent.com/QuixoticHeart/rule-set/ruleset/meta/domain/crypto.mrs"}
   gfw_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"}
   geolocation-!cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
   cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}
