@@ -92,10 +92,22 @@ dns:
     - "rule-set:cn_domain"
     - "+.lan"
     - "+.local"
+    - "+.localdomain"
     - "+.localhost"
+    - "+.home.arpa"
+    - "+.invalid"
+    - "+.test"
+    - "+.internal"
+    - "+.sslip.io"
+    - "+.nip.io"
+    - "+.ts.net"
+    - "+.turn.twilio.com"
     - "+.msftconnecttest.com"
     - "+.msftncsi.com"
     - "time.*.com"
+    - "time-ios.apple.com"
+    - "time-macos.apple.com"
+    - "time.*.apple.com"
     - "+.ntp.org"
     - "+.pool.ntp.org"
     - "+.market.xiaomi.com"
@@ -176,7 +188,6 @@ proxy-groups:
   - {name: 🍀 Google, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
   - {name: 💶 PayPal, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
   - {name: ✈️ Speedtest, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
-  - {name: 🐬 OneDrive, type: select, proxies: [直连, 🚀 默认代理]}
   - {name: 🪟 Microsoft, type: select, proxies: [直连, 🚀 默认代理]}
   - {name: 🍎 Apple, type: select, proxies: [直连, 🚀 默认代理]}
   - {name: 🎯 直连, type: select, proxies: [直连, 🚀 默认代理]}
@@ -209,7 +220,7 @@ rules:
   - RULE-SET,python_domain,🛠️ 开发服务
   - RULE-SET,youtube_domain,📹 YouTube
   - RULE-SET,google_domain,🍀 Google
-  - RULE-SET,onedrive_domain,🐬 OneDrive
+  - RULE-SET,onedrive_domain,🪟 Microsoft
   - RULE-SET,microsoft_domain,🪟 Microsoft
   - RULE-SET,speedtest_domain,✈️ Speedtest
   - RULE-SET,paypal_domain,💶 PayPal

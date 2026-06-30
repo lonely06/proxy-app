@@ -1,6 +1,6 @@
 # 自用
-DOMAIN,fn.lone1.top,DIRECT
-DOMAIN-SUFFIX,fn.lone1.top,DIRECT
+DOMAIN,fn.lone1.top
+DOMAIN-SUFFIX,fn.lone1.top
 
 # 馒头
 DOMAIN-SUFFIX,m-team.cc

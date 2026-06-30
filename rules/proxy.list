@@ -5,3 +5,15 @@ DOMAIN-SUFFIX,navicat.com
 DOMAIN-SUFFIX,codex-pets.net
 DOMAIN-SUFFIX,nstbrowser.io
 DOMAIN-SUFFIX,oapi.vip
+
+# 泄漏 / 指纹检测
+DOMAIN-SUFFIX,dnsleaktest.com
+DOMAIN-SUFFIX,dnsleak.com
+DOMAIN-SUFFIX,ipleak.net
+DOMAIN-SUFFIX,browserleaks.com
+DOMAIN-SUFFIX,browserleaks.org
+DOMAIN-SUFFIX,browserleaks.net
+DOMAIN-SUFFIX,browserscan.net
+DOMAIN-SUFFIX,pixelscan.net
+DOMAIN-SUFFIX,ip-api.com
+DOMAIN-SUFFIX,ipapi.co
