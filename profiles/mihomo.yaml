@@ -94,6 +94,7 @@ dns:
     - "+.local"
     - "+.localdomain"
     - "+.localhost"
+    - "+.lone1.top"
     - "+.home.arpa"
     - "+.invalid"
     - "+.test"

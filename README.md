@@ -29,7 +29,7 @@
 
 - 使用 `fake-ip` 作为 TUN 透明代理场景下的增强 DNS 模式。
 - 开启 `respect-rules`，让 DNS 查询本身遵守路由规则。
-- `fake-ip-filter` 保留局域网、保留域、时间同步和部分特殊解析域名的真实 IP，减少 TUN 场景下的兼容性问题。
+- `fake-ip-filter` 保留局域网、保留域、时间同步和 `lone1.top` 等特殊解析域名的真实 IP，减少 TUN 场景下的兼容性问题。
 - `direct-nameserver` 固定使用国内 DNS，避免直连域名被国外 DNS 解析。
 - `nameserver-policy` 按业务大类分流，AI、GitHub、社交平台、开发服务、加密货币等尽量跟随对应策略组。
 - `🕳️ 漏网之鱼` 默认优先直连，符合“漏网走国内”的使用习惯。
@@ -52,7 +52,7 @@
 
 `profiles/loon.conf` 是移动端 Loon 配置，核心策略组命名尽量与 mihomo 保持一致。使用前请先在 Loon 中导入机场订阅，配置内通过 `Remote Filter` 按节点名称筛选地区节点，不保存任何订阅 URL。
 
-Loon 端 DNS 只能做近似适配：使用 `223.5.5.5`、`119.29.29.29`、阿里 DoH 和腾讯 DoH，不能完全复刻 mihomo 的 `fake-ip`、`respect-rules` 和 `nameserver-policy`。脚本、远程脚本和插件入口保留在 Loon 配置中；已移除不再使用的猫眼本地脚本和对应 MITM hostname。
+Loon 端 DNS 只能做近似适配：使用 `223.5.5.5`、`119.29.29.29`、阿里 DoH 和腾讯 DoH，不能完全复刻 mihomo 的 `respect-rules` 和 `nameserver-policy`；通过 `real-ip` 让 `lone1.top` 及其子域名返回真实 IP。Shadowrocket 使用对应的 `always-real-ip` 设置。脚本、远程脚本和插件入口保留在 Loon 配置中；已移除不再使用的猫眼本地脚本和对应 MITM hostname。
 
 订阅地址：
 
