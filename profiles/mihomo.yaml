@@ -147,6 +147,14 @@ dns:
       - https://1.1.1.1/dns-query#👨🏿‍💻 GitHub
       - https://8.8.8.8/dns-query#👨🏿‍💻 GitHub
 
+    "+.grok.com":
+      - https://1.1.1.1/dns-query#𝕏 Grok
+      - https://8.8.8.8/dns-query#𝕏 Grok
+
+    "+.x.ai":
+      - https://1.1.1.1/dns-query#𝕏 Grok
+      - https://8.8.8.8/dns-query#𝕏 Grok
+
     "rule-set:ai":
       - https://1.1.1.1/dns-query#🤖 AI
       - https://8.8.8.8/dns-query#🤖 AI
@@ -197,6 +205,7 @@ dns:
 # 没有再使用锚点，是考虑很多新手修改难度，这样新手修改某个分组更容易些。
 proxy-groups:
   - {name: 🚀 默认代理, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
+  - {name: 𝕏 Grok, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
   - {name: 🤖 AI, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
   - {name: 👨🏿‍💻 GitHub, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
   - {name: 💬 社交平台, type: select, proxies: [🇸🇬♻️ 狮城自动, 🇯🇵♻️ 日本自动, 🇭🇰♻️ 香港自动, 🇺🇲♻️ 美国自动, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇭🇰 香港节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
@@ -228,6 +237,8 @@ rules:
   - RULE-SET,private_domain,直连
   - RULE-SET,private_ip,直连,no-resolve
   - RULE-SET,github_domain,👨🏿‍💻 GitHub
+  - DOMAIN-SUFFIX,grok.com,𝕏 Grok
+  - DOMAIN-SUFFIX,x.ai,𝕏 Grok
   - RULE-SET,ai,🤖 AI
   - RULE-SET,apple_domain,🍎 Apple
   - RULE-SET,telegram_domain,💬 社交平台
