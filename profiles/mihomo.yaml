@@ -71,6 +71,9 @@ tun:
   auto-route: true
   auto-redirect: true
   auto-detect-interface: true
+  # VPS SSH：绕过 TUN，避免透明代理链路导致连接被服务端关闭
+  route-exclude-address:
+    - 192.236.225.242/32
 
 # DNS模块
 dns:
