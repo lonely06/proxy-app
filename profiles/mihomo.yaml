@@ -48,7 +48,7 @@ profile:
 
 # 嗅探
 sniffer:
-  enable: false
+  enable: true
   sniff:
     HTTP:
       ports: [80, 8080-8880]
@@ -93,6 +93,7 @@ dns:
   fake-ip-filter:
     - "rule-set:private_domain"
     - "rule-set:cn_domain"
+    - "rule-set:docker_domain"
     - "+.lan"
     - "+.local"
     - "+.localdomain"
