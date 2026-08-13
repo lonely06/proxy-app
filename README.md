@@ -7,6 +7,7 @@
 - `profiles/mihomo.yaml`：主力 mihomo 配置，适用于 OpenClash、Clash Verge Rev、FlClash 等 mihomo 内核客户端。
 - `profiles/shadowrocket.conf`：Shadowrocket 基础配置，基于主力 mihomo 配置做了简化适配。
 - `profiles/loon.conf`：Loon 主配置，参考 mihomo 分流和 DNS 思路，保留常用脚本 / 插件入口。
+- `scripts/`：Loon 使用的本地脚本与 `myCookie.conf`，原先来自 lonely06/Quanx 的远程脚本现已放到本仓库。
 - `rules/direct.list`：自维护直连规则，优先放明确需要直连的域名。
 - `rules/proxy.list`：自维护代理规则，优先放明确需要代理的域名。
 - `AGENTS.md`：给 Codex / Agent 修改本仓库时使用的约束说明。
@@ -52,7 +53,7 @@
 
 `profiles/loon.conf` 是移动端 Loon 配置，核心策略组命名尽量与 mihomo 保持一致。使用前请先在 Loon 中导入机场订阅，配置内通过 `Remote Filter` 按节点名称筛选地区节点，不保存任何订阅 URL。
 
-Loon 端 DNS 只能做近似适配：使用 `223.5.5.5`、`119.29.29.29`、阿里 DoH 和腾讯 DoH，不能完全复刻 mihomo 的 `respect-rules` 和 `nameserver-policy`；通过 `real-ip` 让 `lone1.top` 及其子域名返回真实 IP。Shadowrocket 使用对应的 `always-real-ip` 设置。脚本、远程脚本和插件入口保留在 Loon 配置中；已移除不再使用的猫眼本地脚本和对应 MITM hostname。
+Loon 端 DNS 只能做近似适配：使用 `223.5.5.5`、`119.29.29.29`、阿里 DoH 和腾讯 DoH，不能完全复刻 mihomo 的 `respect-rules` 和 `nameserver-policy`；通过 `real-ip` 让 `lone1.top` 及其子域名返回真实 IP。Shadowrocket 使用对应的 `always-real-ip` 设置。脚本、远程脚本和插件入口保留在 Loon 配置中；中青阅读 / 签到 / 看看赚和 `myCookie.conf` 现已改为引用本仓库 `scripts/`，不再依赖 lonely06/Quanx 远程脚本。已移除不再使用的猫眼本地脚本和对应 MITM hostname。
 
 订阅地址：
 
