@@ -2,15 +2,16 @@
 // 按合集当前成员逐条检查；用量 >= 阈值，或剩余天数 <= expireDays 时走 Bark。
 // 成员 = 合集 subscriptions ∪ 命中合集 subscriptionTags 的订阅。
 // 不写死任何 tag；节点原样返回。
+// noFlow 的合集或成员订阅跳过流量/到期查询，但不影响节点输出。
 //
 // 挂到组合订阅：编辑 → 节点操作+ → 脚本操作。
 // 脚本链接填到「脚本」栏，参数填到同一条操作的「参数」栏（不要拼在链接后面）。
 // 参数示例：
-//   threshold=90&expireDays=7&cooldownHours=24&bark=https://api.day.app/<device_key>/[推送标题]/[推送内容]?group=SubStore
+//   threshold=90&expireDays=7&cooldownHours=12&bark=https://api.day.app/<device_key>/[推送标题]/[推送内容]?group=SubStore
 //
 // 参数放置：
 //   脚本：https://raw.githubusercontent.com/lonely06/proxy-app/refs/heads/main/sub-store/flow-alert.js
-//   参数：threshold=90&expireDays=7&cooldownHours=24&bark=...
+//   参数：threshold=90&expireDays=7&cooldownHours=12&bark=...
 //   对应 $arguments.threshold / $arguments.expireDays / $arguments.cooldownHours / $arguments.bark
 //   expireDays=0 关闭到期提醒。
 //
@@ -33,11 +34,12 @@ async function operator(proxies = [], targetPlatform, context) {
 	if (!collection || Object.keys(source).length > 1) {
 		throw new Error("请在组合订阅中使用此脚本");
 	}
+	if (collection.noFlow) return proxies;
 
 	const args = $arguments || {};
 	const threshold = Number(args.threshold || 90);
 	const expireDays = Number(args.expireDays ?? 7);
-	const cooldownHours = Number(args.cooldownHours || 24);
+	const cooldownHours = Number(args.cooldownHours || 12);
 	const bark = String(args.bark || "").trim();
 
 	const { parseFlowHeaders, getFlowHeaders, normalizeFlowHeader } = flowUtils;
@@ -218,6 +220,8 @@ function collectMemberNames(collection, allSubs) {
 }
 
 async function readFlowHeader(sub, getFlowHeaders, normalizeFlowHeader) {
+	if (sub.noFlow) return null;
+
 	let flowInfo;
 	if (
 		sub.source !== "local" ||

@@ -80,7 +80,7 @@ Loon 端 DNS 只能做近似适配：使用 `223.5.5.5`、`119.29.29.29`、阿�
 
 ## Sub-Store 流量与到期告警
 
-`sub-store/flow-alert.js` 挂在组合订阅的脚本操作上，按合集当前成员逐条检查；单条用量达到阈值，或剩余天数达到 `expireDays` 后走 Bark。用量和到期分开记冷却。成员来自合集自己的 `subscriptions` 和 `subscriptionTags`，不写死任何 tag。
+`sub-store/flow-alert.js` 挂在组合订阅的脚本操作上，按合集当前成员逐条检查；单条用量达到阈值，或剩余天数达到 `expireDays` 后走 Bark。启用 `noFlow` 的合集或成员订阅会跳过流量/到期查询，但不影响节点输出。用量和到期分开记冷却。成员来自合集自己的 `subscriptions` 和 `subscriptionTags`，不写死任何 tag。
 
 放置位置：组合订阅 → 编辑 → 节点操作+ → 脚本操作。脚本链接填「脚本」栏，参数填同一条操作的「参数」栏，不要拼在链接后面。
 
@@ -91,7 +91,7 @@ Loon 端 DNS 只能做近似适配：使用 `223.5.5.5`、`119.29.29.29`、阿�
 参数栏填写：
 
 ```text
-threshold=90&expireDays=7&cooldownHours=24&bark=https://api.day.app/<device_key>/[推送标题]/[推送内容]?group=SubStore
+threshold=90&expireDays=7&cooldownHours=12&bark=https://api.day.app/<device_key>/[推送标题]/[推送内容]?group=SubStore
 ```
 
 对应 `$arguments.threshold`、`$arguments.expireDays`、`$arguments.cooldownHours`、`$arguments.bark`。`expireDays=0` 关闭到期提醒。Bark 占位符由脚本替换。设备 Key 只写进这条参数，不要写进仓库。
