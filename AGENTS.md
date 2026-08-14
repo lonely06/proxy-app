@@ -54,7 +54,7 @@ Scope: this file applies to the whole repository.
 - `profiles/shadowrocket.conf`: preserve Shadowrocket syntax, section layout, and simplified group structure.
 - `profiles/loon.conf`: preserve Loon section layout, strategy group names, Remote Filter usage, Remote Rule policy targets, scripts, remote scripts, plugins, and MITM entries. Keep `[Script]` cron `script-path` URLs and the Script-Hub `myCookie.conf` plugin URL aligned with `scripts/` in this repo.
 - `scripts/myCookie.conf`: keep enabled script URLs pointed at this repo's `scripts/` raw paths; keep the file lean and do not add commented unused rules back unless the user asks.
-- `sub-store/flow-alert.js`: keep Bark URL format declared in-script; do not hardcode collection tags; do not put device keys in the repo.
+- `sub-store/flow-alert.js`: keep Bark URL format declared in-script; keep usage and expiry alerts on separate cooldowns; do not hardcode collection tags; do not put device keys in the repo.
 - `rules/direct.list`: add only clear direct destinations.
 - `rules/proxy.list`: add only clear proxy-only destinations.
 - `README.md`: update it when the repo structure, supported clients, DNS strategy, rule categories, or sourcing strategy changes.
@@ -69,11 +69,13 @@ Scope: this file applies to the whole repository.
 
 - Generate the commit message from the actual diff, not from a generic task label.
 - Use this required format:
+
   ```text
   - <真实汇总信息>
     1. <真实明细 1>
     2. <真实明细 2>
   ```
+
 - The summary must mention the changed area and actual outcome.
 - Each numbered item must describe one real change from the diff.
 - Prefer 2-4 numbered items.
