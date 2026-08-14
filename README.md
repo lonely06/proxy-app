@@ -8,6 +8,7 @@
 - `profiles/shadowrocket.conf`：Shadowrocket 基础配置，基于主力 mihomo 配置做了简化适配。
 - `profiles/loon.conf`：Loon 主配置，参考 mihomo 分流和 DNS 思路，保留常用脚本 / 插件入口。
 - `scripts/`：Loon 使用的本地脚本与 `myCookie.conf`，原先来自 lonely06/Quanx 的远程脚本现已放到本仓库。
+- `sub-store/`：Sub-Store 组合订阅脚本，与 Loon `scripts/` 分开维护。
 - `rules/direct.list`：自维护直连规则，优先放明确需要直连的域名。
 - `rules/proxy.list`：自维护代理规则，优先放明确需要代理的域名。
 - `AGENTS.md`：给 Codex / Agent 修改本仓库时使用的约束说明。
@@ -76,6 +77,24 @@ Loon 端 DNS 只能做近似适配：使用 `223.5.5.5`、`119.29.29.29`、阿�
   - `QuixoticHeart/rule-set` 的 AI 与加密货币规则
 
 注意：MetaCubeX 规则集中，npm 对应 `npmjs.mrs`，PyPI 相关规则归在 `python.mrs`。
+
+## Sub-Store 流量告警
+
+`sub-store/flow-alert.js` 挂在组合订阅的脚本操作上，按合集当前成员逐条检查流量；单条用量达到阈值后走 Bark。成员来自合集自己的 `subscriptions` 和 `subscriptionTags`，不写死任何 tag。
+
+放置位置：组合订阅 → 编辑 → 节点操作+ → 脚本操作。脚本链接填「脚本」栏，参数填同一条操作的「参数」栏，不要拼在链接后面。
+
+脚本链接：
+
+- `https://raw.githubusercontent.com/lonely06/proxy-app/refs/heads/main/sub-store/flow-alert.js`
+
+参数栏填写：
+
+```text
+threshold=90&cooldownHours=24&bark=https://api.day.app/<device_key>/[推送标题]/[推送内容]?group=SubStore
+```
+
+对应 `$arguments.threshold`、`$arguments.cooldownHours`、`$arguments.bark`。Bark 占位符由脚本替换。设备 Key 只写进这条参数，不要写进仓库。
 
 ## 修改建议
 

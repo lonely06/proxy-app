@@ -9,6 +9,7 @@ Scope: this file applies to the whole repository.
 - `profiles/shadowrocket.conf` is a simplified Shadowrocket profile derived from the mihomo config.
 - `profiles/loon.conf` is the maintained Loon profile derived from the mihomo routing model while preserving Loon scripts and plugins.
 - `scripts/` holds the Loon-used scripts and `myCookie.conf` vendored from lonely06/Quanx; keep this tree lean and do not add unused scripts.
+- `sub-store/` holds Sub-Store collection scripts. Do not mix them into Loon `scripts/`.
 - `rules/direct.list` and `rules/proxy.list` are small self-maintained rule lists shared by profiles.
 - Keep the repository lean. Prefer direct edits to rules and profiles over adding generators, build steps, or extra tooling.
 
@@ -53,6 +54,7 @@ Scope: this file applies to the whole repository.
 - `profiles/shadowrocket.conf`: preserve Shadowrocket syntax, section layout, and simplified group structure.
 - `profiles/loon.conf`: preserve Loon section layout, strategy group names, Remote Filter usage, Remote Rule policy targets, scripts, remote scripts, plugins, and MITM entries. Keep `[Script]` cron `script-path` URLs and the Script-Hub `myCookie.conf` plugin URL aligned with `scripts/` in this repo.
 - `scripts/myCookie.conf`: keep enabled script URLs pointed at this repo's `scripts/` raw paths; keep the file lean and do not add commented unused rules back unless the user asks.
+- `sub-store/flow-alert.js`: keep Bark URL format declared in-script; do not hardcode collection tags; do not put device keys in the repo.
 - `rules/direct.list`: add only clear direct destinations.
 - `rules/proxy.list`: add only clear proxy-only destinations.
 - `README.md`: update it when the repo structure, supported clients, DNS strategy, rule categories, or sourcing strategy changes.
