@@ -96,6 +96,22 @@ threshold=90&expireDays=7&cooldownHours=12&bark=https://api.day.app/<device_key>
 
 对应 `$arguments.threshold`、`$arguments.expireDays`、`$arguments.cooldownHours`、`$arguments.bark`。`expireDays=0` 关闭到期提醒。Bark 占位符由脚本替换。设备 Key 只写进这条参数，不要写进仓库。
 
+## Sub-Store 宝可梦串行切号
+
+`sub-store/pokemon-rotate.js` 挂在同一个组合订阅上，放在 `flow-alert.js` 前面。合集先收齐全部宝可梦账号，脚本只放行当前账号的 `[PKM1]` / `[PKM2]` / `[PKM3]`；赔钱机场等其他节点原样保留。当前 `airport` 账号未耗尽就继续用；用量超套、剩余不足 `minRemainMB`，或这个号 0 个有效节点时，按名称顺序切下一个还有余量的号。筛选是这次下载的依据；tag / `noFlow` 只给下次收源和 `flow-alert` 用。脚本失败时只保留当前账号，不把备用号漏进测速。
+
+脚本链接：
+
+- `https://raw.githubusercontent.com/lonely06/proxy-app/refs/heads/main/sub-store/pokemon-rotate.js`
+
+参数栏填写：
+
+```text
+minRemainMB=100&bark=https://api.day.app/<device_key>/[推送标题]/[推送内容]?group=SubStore
+```
+
+账号约定：订阅名 `宝可梦1/2/3`，节点前缀 `[PKM1]` / `[PKM2]` / `[PKM3]`，组 tag `pokemon`。当前在用额外打 `airport`；其余 `pokemon-standby` + `noFlow`。合集 `subscriptionTags` 需同时收 `airport` 和 `pokemon`。设备 Key 只写进参数，不要写进仓库。
+
 ## 修改建议
 
 - 修改规则前，先判断是应该加入 `rules/direct.list` 还是 `rules/proxy.list`。
