@@ -36,8 +36,7 @@ async function operator(proxies = [], targetPlatform, context) {
 	if (!accounts.length) return proxies;
 
 	try {
-		const { parseFlowHeaders, getFlowHeaders, normalizeFlowHeader } =
-			flowUtils;
+		const { parseFlowHeaders, getFlowHeaders, normalizeFlowHeader } = flowUtils;
 		const counted = countPrefixes(proxies);
 		for (const acc of accounts) {
 			acc.nodeCount = counted[acc.prefix] || 0;
@@ -60,11 +59,7 @@ async function operator(proxies = [], targetPlatform, context) {
 		const current = currentAccount(accounts, activeTag);
 		const chosen = pickAccount(accounts, current);
 		const selectedPrefix = chosen ? chosen.prefix : null;
-		const switched = !!(
-			chosen &&
-			current &&
-			chosen.name !== current.name
-		);
+		const switched = !!(chosen && current && chosen.name !== current.name);
 
 		persistTags($, allSubs, accounts, chosen, {
 			groupTag,
@@ -80,14 +75,10 @@ async function operator(proxies = [], targetPlatform, context) {
 					bark,
 					`已切换：${chosen.name}`,
 					`${current.name} → ${chosen.name}`,
-					remain == null
-						? "下一账号仍有余量"
-						: `下一账号剩余 ${fmt(remain)}`,
+					remain == null ? "下一账号仍有余量" : `下一账号剩余 ${fmt(remain)}`,
 				);
 			} catch (err) {
-				$.error(
-					`宝可梦切号 Bark 失败: ${err && err.message ? err.message : err}`,
-				);
+				$.error(`宝可梦切号 Bark 失败: ${err && err.message ? err.message : err}`);
 			}
 		}
 
@@ -98,7 +89,9 @@ async function operator(proxies = [], targetPlatform, context) {
 			false,
 		);
 	} catch (err) {
-		$.error(`宝可梦切号失败，仅保留当前账号: ${err && err.message ? err.message : err}`);
+		$.error(
+			`宝可梦切号失败，仅保留当前账号: ${err && err.message ? err.message : err}`,
+		);
 		const current = currentAccount(accounts, activeTag);
 		return filterProxies(
 			proxies,
@@ -138,9 +131,7 @@ function listAccounts(allSubs, groupTag) {
 function currentAccount(accounts, activeTag) {
 	return (
 		accounts.find(
-			(acc) =>
-				Array.isArray(acc.sub.tag) &&
-				acc.sub.tag.indexOf(activeTag) !== -1,
+			(acc) => Array.isArray(acc.sub.tag) && acc.sub.tag.indexOf(activeTag) !== -1,
 		) || null
 	);
 }
@@ -166,9 +157,7 @@ function isExhausted(acc, minRemain) {
 
 function usedBytes(info) {
 	if (!info || !info.usage) return 0;
-	return (
-		Number(info.usage.upload || 0) + Number(info.usage.download || 0)
-	);
+	return Number(info.usage.upload || 0) + Number(info.usage.download || 0);
 }
 
 function remainingBytes(info) {
@@ -222,8 +211,7 @@ function applyTags(sub, active, tags) {
 		removeTag(next, tags.activeTag);
 	}
 	const nextNoFlow = active ? false : true;
-	const same =
-		sameTags(sub.tag, next) && Boolean(sub.noFlow) === nextNoFlow;
+	const same = sameTags(sub.tag, next) && Boolean(sub.noFlow) === nextNoFlow;
 	if (same) return false;
 	sub.tag = next;
 	sub.noFlow = nextNoFlow;
@@ -343,8 +331,20 @@ if (typeof $substore === "undefined" && typeof process !== "undefined") {
 	if (prefixOf("🇺🇸 [PQ] 洛杉矶") !== null) throw new Error("non-pokemon");
 
 	const a1 = acc("宝可梦1", 1, ["pokemon", "airport"], used(10, 60 * GB), 48);
-	const a2 = acc("宝可梦2", 2, ["pokemon", "pokemon-standby"], used(0, 60 * GB), 48);
-	const a3 = acc("宝可梦3", 3, ["pokemon", "pokemon-standby"], used(62 * GB, 60 * GB), 48);
+	const a2 = acc(
+		"宝可梦2",
+		2,
+		["pokemon", "pokemon-standby"],
+		used(0, 60 * GB),
+		48,
+	);
+	const a3 = acc(
+		"宝可梦3",
+		3,
+		["pokemon", "pokemon-standby"],
+		used(62 * GB, 60 * GB),
+		48,
+	);
 	a1.exhausted = isExhausted(a1, minRemain);
 	a2.exhausted = isExhausted(a2, minRemain);
 	a3.exhausted = isExhausted(a3, minRemain);
