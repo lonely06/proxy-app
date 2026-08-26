@@ -7,8 +7,8 @@
 //   脚本：https://raw.githubusercontent.com/lonely06/proxy-app/refs/heads/main/sub-store/pokemon-rotate.js
 //   参数：minRemainMB=100&bark=https://api.day.app/<device_key>/[推送标题]/[推送内容]?group=SubStore
 //
-// 账号约定：名称 宝可梦1/2/3，节点前缀 [PKM1]/[PKM2]/[PKM3]，组 tag=pokemon。
-// 当前在用额外打 airport；其余 pokemon-standby + noFlow。
+// 账号约定：名称 宝可梦1/2/3…，节点前缀 [PKM1]/[PKM2]/[PKM3]…，组 tag=pokemon。
+// 当前在用额外打 airport；其余打 pokemon-standby，但保留流量查询。
 // 不要把设备 Key 写进仓库。
 
 const BARK_TITLE_TOKEN = "[推送标题]";
@@ -210,7 +210,7 @@ function applyTags(sub, active, tags) {
 		addTag(next, tags.standbyTag);
 		removeTag(next, tags.activeTag);
 	}
-	const nextNoFlow = active ? false : true;
+	const nextNoFlow = false;
 	const same = sameTags(sub.tag, next) && Boolean(sub.noFlow) === nextNoFlow;
 	if (same) return false;
 	sub.tag = next;
@@ -367,6 +367,14 @@ if (typeof $substore === "undefined" && typeof process !== "undefined") {
 	a2.exhausted = true;
 	a3.exhausted = true;
 	if (pickAccount([a1, a2, a3], a1) !== null) throw new Error("drop when all exhausted");
+
+	const standby = { tag: ["pokemon", "pokemon-standby"], noFlow: true };
+	applyTags(standby, false, {
+		groupTag: "pokemon",
+		activeTag: "airport",
+		standbyTag: "pokemon-standby",
+	});
+	if (standby.noFlow) throw new Error("keep standby flow query");
 
 	const mixed = [
 		{ name: "🇭🇰 [PKM1] 香港" },

@@ -55,7 +55,7 @@ Scope: this file applies to the whole repository.
 - `profiles/loon.conf`: preserve Loon section layout, strategy group names, Remote Filter usage, Remote Rule policy targets, scripts, remote scripts, plugins, and MITM entries. Keep `[Script]` cron `script-path` URLs and the Script-Hub `myCookie.conf` plugin URL aligned with `scripts/` in this repo.
 - `scripts/myCookie.conf`: keep enabled script URLs pointed at this repo's `scripts/` raw paths; keep the file lean and do not add commented unused rules back unless the user asks.
 - `sub-store/flow-alert.js`: keep Bark URL format declared in-script; keep usage and expiry alerts on separate cooldowns; do not hardcode collection tags; do not put device keys in the repo.
-- `sub-store/pokemon-rotate.js`: keep Pokemon accounts serial; filter `[PKM1]` / `[PKM2]` / `[PKM3]` to the current account; switch only when exhausted; remove all Pokemon nodes when every account is exhausted; do not merge this into `flow-alert.js`; do not put device keys in the repo.
+- `sub-store/pokemon-rotate.js`: keep Pokemon accounts serial; filter `[PKM1]` / `[PKM2]` / `[PKM3]` / `[PKM4]` to the current account; switch only when exhausted; keep standby accounts queryable by leaving `noFlow` false; remove all Pokemon nodes when every account is exhausted; do not merge this into `flow-alert.js`; do not put device keys in the repo.
 - `rules/direct.list`: add only clear direct destinations.
 - `rules/proxy.list`: add only clear proxy-only destinations.
 - `README.md`: update it when the repo structure, supported clients, DNS strategy, rule categories, or sourcing strategy changes.
