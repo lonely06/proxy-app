@@ -1,6 +1,6 @@
 // Sub-Store 组合订阅：宝可梦多账号串行切换。
 // 合集先收齐全部宝可梦节点，本脚本只放行当前账号的 [PKMn]，再写回 tag。
-// 当前 airport 账号未耗尽则继续用；耗尽后按名称顺序切下一个还有余量的。
+// 当前 airport 账号未耗尽则继续用；耗尽后按名称顺序切下一个还有余量的；全部耗尽则不输出宝可梦节点。
 // 过滤是这次下载的依据；tag / noFlow 只给下次收源和 flow-alert 用。
 //
 // 挂到组合订阅，放在 flow-alert.js 前面：
@@ -143,7 +143,7 @@ function pickAccount(accounts, current) {
 		const acc = accounts[(start + i) % accounts.length];
 		if (acc && !acc.exhausted) return acc;
 	}
-	return current || accounts[accounts.length - 1] || null;
+	return current && !current.exhausted ? current : null;
 }
 
 function isExhausted(acc, minRemain) {
@@ -366,7 +366,7 @@ if (typeof $substore === "undefined" && typeof process !== "undefined") {
 	a1.exhausted = true;
 	a2.exhausted = true;
 	a3.exhausted = true;
-	if (pickAccount([a1, a2, a3], a1) !== a1) throw new Error("stay when empty");
+	if (pickAccount([a1, a2, a3], a1) !== null) throw new Error("drop when all exhausted");
 
 	const mixed = [
 		{ name: "🇭🇰 [PKM1] 香港" },
