@@ -98,7 +98,7 @@ threshold=90&expireDays=7&cooldownHours=12&bark=https://api.day.app/<device_key>
 
 ## Sub-Store 宝可梦串行切号
 
-`sub-store/pokemon-rotate.js` 挂在同一个组合订阅上，放在 `flow-alert.js` 前面。合集先收齐全部宝可梦账号，脚本只放行当前账号的 `[PKM1]` / `[PKM2]` / `[PKM3]` / `[PKM4]`；赔钱机场等其他节点原样保留。当前 `airport` 账号未耗尽就继续用；用量超套、剩余不足 `minRemainMB`，或这个号 0 个有效节点时，按名称顺序切下一个还有余量的号；全部账号耗尽时移除全部宝可梦节点。备用账号保留 `pokemon-standby` 标签，但不设置 `noFlow`，这样仍可查询流量并参与切号判断。筛选是这次下载的依据；tag 只给下次收源和 `flow-alert` 用。脚本失败时只保留当前账号，不把备用号漏进测速。
+`sub-store/pokemon-rotate.js` 挂在同一个组合订阅上，放在 `flow-alert.js` 前面。合集先收齐全部宝可梦账号，脚本只放行当前账号的 `[PKM1]` / `[PKM2]` / `[PKM3]` / `[PKM4]`；赔钱机场等其他节点原样保留。当前 `airport` 账号未耗尽就继续用；用量超套、剩余不足 `minRemainMB`，或这个号 0 个有效节点时，按名称顺序切下一个还有余量的号；全部账号耗尽时移除全部宝可梦节点，并通过同一条 Bark 参数通知一次；恢复可用账号后会清除不可用状态。备用账号保留 `pokemon-standby` 标签，但不设置 `noFlow`，这样仍可查询流量并参与切号判断。筛选是这次下载的依据；tag 只给下次收源和 `flow-alert` 用。脚本失败时只保留当前账号，不把备用号漏进测速。
 
 脚本链接：
 

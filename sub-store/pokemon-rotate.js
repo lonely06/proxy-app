@@ -13,11 +13,13 @@
 
 const BARK_TITLE_TOKEN = "[推送标题]";
 const BARK_BODY_TOKEN = "[推送内容]";
+const STATE_KEY = "pokemon-rotate-state";
 const NAME_RE = /^宝可梦(\d+)$/;
 const PREFIX_RE = /\[PKM(\d*)\]/;
 const MB = 1024 * 1024;
 
-async function operator(proxies = [], targetPlatform, context) {
+// eslint-disable-next-line no-unused-vars -- Sub-Store entry point
+async function operator(proxies = [], _targetPlatform, context) {
 	const $ = $substore;
 	const collection = context && context.source && context.source._collection;
 	if (!collection || Object.keys(context.source).length > 1) {
@@ -33,7 +35,10 @@ async function operator(proxies = [], targetPlatform, context) {
 
 	const allSubs = $.read("subs") || [];
 	const accounts = listAccounts(allSubs, groupTag);
-	if (!accounts.length) return proxies;
+	if (!accounts.length) {
+		await notifyUnavailable($, bark, accounts, null);
+		return proxies;
+	}
 
 	try {
 		const { parseFlowHeaders, getFlowHeaders, normalizeFlowHeader } = flowUtils;
@@ -61,6 +66,7 @@ async function operator(proxies = [], targetPlatform, context) {
 		const selectedPrefix = chosen ? chosen.prefix : null;
 		const switched = !!(chosen && current && chosen.name !== current.name);
 
+		await notifyUnavailable($, bark, accounts, chosen);
 		persistTags($, allSubs, accounts, chosen, {
 			groupTag,
 			activeTag,
@@ -267,6 +273,35 @@ async function readFlowHeader(sub, getFlowHeaders, normalizeFlowHeader) {
 		true,
 	);
 	return headers && headers["subscription-userinfo"];
+}
+
+async function notifyUnavailable($, bark, accounts, chosen) {
+	const state = $.read(STATE_KEY) || {};
+	if (chosen) {
+		if (state.unavailable) {
+			delete state.unavailable;
+			$.write(state, STATE_KEY);
+		}
+		return;
+	}
+	if (state.unavailable) return;
+
+	try {
+		await notifyBark(
+			$,
+			bark,
+			"宝可梦订阅不可用",
+			"没有可用账号",
+			accounts.length
+				? `${accounts.map((acc) => acc.name).join("、")} 均已耗尽或无有效节点，已移除宝可梦节点。`
+				: "未配置宝可梦账号，已移除宝可梦节点。",
+		);
+		$.write({ unavailable: true }, STATE_KEY);
+	} catch (err) {
+		$.error(
+			`宝可梦无可用订阅通知失败: ${err && err.message ? err.message : err}`,
+		);
+	}
 }
 
 async function notifyBark($, bark, title, subtitle, body) {
