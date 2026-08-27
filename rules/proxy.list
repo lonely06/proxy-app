@@ -1,5 +1,7 @@
 DOMAIN-SUFFIX,dr.lone1.top
 
+IP-CIDR,192.236.225.242/32
+
 DOMAIN-SUFFIX,wallhaven.cc
 DOMAIN-SUFFIX,qichiyu.com
 DOMAIN-SUFFIX,warp.dev

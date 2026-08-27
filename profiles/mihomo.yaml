@@ -71,10 +71,9 @@ tun:
   auto-route: true
   auto-redirect: true
   auto-detect-interface: true
-  # LAN / VPS SSH：绕过 TUN，避免直连局域网或 SSH 被虚拟网卡吃掉
+  # LAN：绕过 TUN，避免直连局域网被虚拟网卡吃掉
   route-exclude-address:
     - 192.168.2.0/24
-    - 192.236.225.242/32
 
 # DNS模块
 dns:
